@@ -1,9 +1,11 @@
+"use client";
 import * as React from "react";
 import { AppProvider } from "@toolpad/core/nextjs";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import type { Navigation } from "@toolpad/core";
+import CommentIcon from "@mui/icons-material/Comment";
+import type { Navigation, Session } from "@toolpad/core";
 
 import theme from "../theme";
 
@@ -22,18 +24,49 @@ const NAVIGATION: Navigation = [
     title: "Orders",
     icon: <ShoppingCartIcon />,
   },
+  {
+    segment: "comments",
+    title: "Comments",
+    icon: <CommentIcon />,
+  },
 ];
 
 const BRANDING = {
-  title: "My Toolpad Core Next.js App",
+  title: "Toolpad",
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {
+  const [session, setSession] = React.useState<Session | null>({
+    user: {
+      name: "Bharat Kashyap",
+      email: "bharatkashyap@outlook.com",
+      image: "https://avatars.githubusercontent.com/u/19550456",
+    },
+  });
+
+  const authentication = React.useMemo(() => {
+    return {
+      signIn: () => {
+        setSession({
+          user: {
+            name: "Bharat Kashyap",
+            email: "bharatkashyap@outlook.com",
+            image: "https://avatars.githubusercontent.com/u/19550456",
+          },
+        });
+      },
+      signOut: () => {
+        setSession(null);
+      },
+    };
+  }, []);
   return (
     <html lang="en" data-toolpad-color-scheme="light" suppressHydrationWarning>
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <AppProvider
+            session={session}
+            authentication={authentication}
             navigation={NAVIGATION}
             branding={BRANDING}
             theme={theme}
