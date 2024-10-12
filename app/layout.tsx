@@ -3,9 +3,9 @@ import * as React from "react";
 import { AppProvider } from "@toolpad/core/nextjs";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CommentIcon from "@mui/icons-material/Comment";
 import type { Navigation, Session } from "@toolpad/core";
+import { AiFillAlipayCircle } from "react-icons/ai";
 
 import theme from "../theme";
 
@@ -22,7 +22,7 @@ const NAVIGATION: Navigation = [
   {
     segment: "orders",
     title: "Orders",
-    icon: <ShoppingCartIcon />,
+    icon: <AiFillAlipayCircle size={24} />,
   },
   {
     segment: "comments",
